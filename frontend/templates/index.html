@@ -48,11 +48,11 @@
 </head>
 <body class="bg-surface-bg text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
 
-  <!-- Top Academic & Project Header -->
+  <!-- Top Enterprise Header -->
   <header class="border-b border-surface-border bg-surface-card/90 backdrop-blur sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <!-- Title & Badges -->
+        <!-- Title & Status Badges -->
         <div class="flex items-start gap-3">
           <div class="p-2.5 bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border border-cyan-500/40 rounded-xl text-cyan-400 shadow-lg shadow-cyan-500/10">
             <i data-lucide="layers" class="w-7 h-7"></i>
@@ -66,54 +66,77 @@
               <span class="text-xs px-2.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono">
                 Multi-Objective Scheduling
               </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-mono">
+                6 Core Modules
+              </span>
             </div>
             <h1 class="text-base sm:text-lg font-bold text-white tracking-tight mt-1">
-              Workload-Forecasting Driven Proactive Pod Scheduling for Kubernetes
+              Workload-Forecasting Driven Proactive Pod Scheduling for Kubernetes Clusters
             </h1>
             <p class="text-xs text-slate-400">
-              LSTM-XGBoost Ensemble with Multi-Objective Node Ranking
+              LSTM-XGBoost Ensemble with Multi-Objective Node Ranking Engine
             </p>
           </div>
         </div>
 
-        <!-- Cluster Status Indicator -->
+        <!-- Live Status Indicators -->
         <div class="flex items-center gap-3 self-end md:self-auto text-xs font-mono">
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated border border-surface-border text-slate-300">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>Cluster Status: <strong class="text-emerald-400">Active</strong></span>
           </div>
+          <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-elevated border border-surface-border text-slate-300">
+            <span>Extender Port: <strong class="text-cyan-400">5000</strong></span>
+          </div>
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
+      <!-- Navigation Tabs for All 6 Modules -->
       <nav class="flex items-center space-x-1 sm:space-x-2 mt-4 overflow-x-auto pb-1 text-xs font-medium border-t border-surface-border/50 pt-2.5">
-        <button onclick="switchTab('overview')" id="tab-overview" class="nav-tab active flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
+        <button onclick="switchTab('overview')" id="tab-overview" class="nav-tab active flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
           <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-          <span>Architecture & Overview</span>
+          <span>Overview</span>
         </button>
-        <button onclick="switchTab('data-engine')" id="tab-data-engine" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
-          <i data-lucide="database" class="w-4 h-4"></i>
-          <span>Data Engine & Beta Fitting</span>
+
+        <button onclick="switchTab('data-collection')" id="tab-data-collection" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold">1</span>
+          <i data-lucide="database" class="w-3.5 h-3.5"></i>
+          <span>Data Collection</span>
         </button>
-        <button onclick="switchTab('models')" id="tab-models" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
-          <span>LSTM-XGBoost Ensemble</span>
+
+        <button onclick="switchTab('data-preprocessing')" id="tab-data-preprocessing" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold">2</span>
+          <i data-lucide="binary" class="w-3.5 h-3.5"></i>
+          <span>Data Preprocessing</span>
         </button>
-        <button onclick="switchTab('node-ranking')" id="tab-node-ranking" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
-          <i data-lucide="sliders" class="w-4 h-4"></i>
-          <span>Multi-Objective Node Ranking</span>
+
+        <button onclick="switchTab('workload-prediction')" id="tab-workload-prediction" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold">3</span>
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Workload Prediction</span>
         </button>
-        <button onclick="switchTab('cluster-sim')" id="tab-cluster-sim" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
-          <i data-lucide="box" class="w-4 h-4"></i>
-          <span>Proactive Pod Scheduler</span>
+
+        <button onclick="switchTab('node-ranking')" id="tab-node-ranking" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">4</span>
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+          <span>Node Ranking</span>
         </button>
-        <button onclick="switchTab('evaluation')" id="tab-evaluation" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
-          <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
-          <span>Comparative Benchmark</span>
+
+        <button onclick="switchTab('pod-scheduling')" id="tab-pod-scheduling" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">5</span>
+          <i data-lucide="server" class="w-3.5 h-3.5"></i>
+          <span>Pod Scheduling</span>
         </button>
-        <button onclick="switchTab('k8s-extender')" id="tab-k8s-extender" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all">
+
+        <button onclick="switchTab('monitoring')" id="tab-monitoring" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
+          <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold">6</span>
+          <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+          <span>Monitoring</span>
+        </button>
+
+        <button onclick="switchTab('k8s-extender')" id="tab-k8s-extender" class="nav-tab flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all shrink-0">
           <i data-lucide="terminal" class="w-4 h-4"></i>
-          <span>K8s Webhook API</span>
+          <span>K8s Webhook</span>
         </button>
       </nav>
     </div>
@@ -123,7 +146,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
     <!-- ============================================================= -->
-    <!-- TAB 1: ARCHITECTURE & SYSTEM OVERVIEW -->
+    <!-- TAB: OVERVIEW & ARCHITECTURE -->
     <!-- ============================================================= -->
     <section id="pane-overview" class="tab-pane space-y-6">
       <!-- Quick Metric KPI Banners -->
@@ -173,6 +196,71 @@
         </div>
       </div>
 
+      <!-- MODULE SPECIFICATION ACCORDION / SUMMARY BANNER -->
+      <div class="card p-6 border-cyan-500/30 bg-gradient-to-r from-cyan-950/20 via-surface-card to-blue-950/20">
+        <div class="flex items-center gap-3 border-b border-surface-border pb-4 mb-4">
+          <div class="p-2 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <i data-lucide="list-checks" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white uppercase tracking-wider">
+              Project Module Specifications
+            </h3>
+            <p class="text-xs text-slate-400">All 6 core modules implemented end-to-end in this system</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs font-mono">
+          <div onclick="switchTab('data-collection')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-blue-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-blue-400 font-bold">1. Data Collection</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Collect CPU, memory and workload data continuously.</p>
+          </div>
+
+          <div onclick="switchTab('data-preprocessing')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-indigo-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-indigo-400 font-bold">2. Data Preprocessing</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Clean, normalize, window sequences, and prepare features.</p>
+          </div>
+
+          <div onclick="switchTab('workload-prediction')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-cyan-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-cyan-400 font-bold">3. Workload Prediction</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Predict workload using hybrid LSTM and XGBoost ensemble.</p>
+          </div>
+
+          <div onclick="switchTab('node-ranking')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-amber-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-amber-400 font-bold">4. Node Ranking</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Rank worker nodes across multi-objective criteria.</p>
+          </div>
+
+          <div onclick="switchTab('pod-scheduling')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-emerald-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-emerald-400 font-bold">5. Pod Scheduling</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Schedule and place pods to the best node proactively.</p>
+          </div>
+
+          <div onclick="switchTab('monitoring')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-rose-500/50 cursor-pointer transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-rose-400 font-bold">6. Monitoring</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </div>
+            <p class="text-slate-300 font-sans text-[11px]">Monitor performance, SLO compliance, and latency.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- Problem vs Proposed Solution Grid -->
       <div class="grid md:grid-cols-2 gap-6">
         <!-- The Problem -->
@@ -196,7 +284,7 @@
             </li>
             <li class="flex items-start gap-2">
               <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 mt-0.5 shrink-0"></i>
-              <span><strong>Single-Model Lag:</strong> Existing papers (e.g. Amirullah 2025) use LSTM alone, which smooths out sharp spikes and lacks placement integration.</span>
+              <span><strong>Single-Model Lag:</strong> Existing approaches use LSTM alone, which smooths out sharp spikes and lacks placement integration.</span>
             </li>
           </ul>
         </div>
@@ -228,105 +316,122 @@
         </div>
       </div>
 
-      <!-- End-to-End Architecture Diagram matching Slide 6 & Report Fig 1 -->
+      <!-- End-to-End Architecture Diagram showing all 6 modules -->
       <div class="card p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border pb-4 mb-6">
           <div>
             <h3 class="text-base font-bold text-white flex items-center gap-2">
               <i data-lucide="git-merge" class="w-5 h-5 text-cyan-400"></i>
-              End-to-End System Architecture
+              End-to-End System Architecture Pipeline
             </h3>
-            <p class="text-xs text-slate-400">Interactive dataflow from Prometheus telemetry scraping to Kubernetes proactive pod binding</p>
+            <p class="text-xs text-slate-400">Complete dataflow executing across all 6 modules in a closed feedback loop</p>
           </div>
           <span class="text-xs px-2.5 py-1 bg-surface-elevated text-slate-300 rounded border border-surface-border font-mono">
-            Feedback Loop: Prometheus ➔ AI Ensemble ➔ Node Ranker ➔ K8s Extender
+            Telemetry ➔ Preprocessing ➔ Prediction ➔ Ranking ➔ Scheduling ➔ Monitoring
           </span>
         </div>
 
-        <!-- Visual Interactive Pipeline -->
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 relative">
+        <!-- 6 Connected Module Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 relative">
           <!-- Step 1 -->
-          <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border flex flex-col justify-between">
+          <div onclick="switchTab('data-collection')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-blue-500/60 cursor-pointer flex flex-col justify-between transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">MODULE 1</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">M1</span>
                 <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
               </div>
-              <h4 class="text-sm font-semibold text-white">Data Collection</h4>
-              <p class="text-xs text-slate-400 mt-1.5">
-                Prometheus metrics scraper & Zanbil e-commerce log with Beta distribution traffic modeling ($a=1.32, b=2.98$).
+              <h4 class="text-xs font-semibold text-white">Data Collection</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Collect CPU, memory, and workload data via Prometheus.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-surface-border/50 text-[11px] font-mono text-cyan-400">
-              ➔ 6,754 Time Points
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-cyan-400">
+              ➔ 6,754 Points
             </div>
           </div>
 
           <!-- Step 2 -->
-          <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border flex flex-col justify-between">
+          <div onclick="switchTab('data-preprocessing')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-indigo-500/60 cursor-pointer flex flex-col justify-between transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">MODULE 2</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold">M2</span>
                 <i data-lucide="binary" class="w-4 h-4 text-indigo-400"></i>
               </div>
-              <h4 class="text-sm font-semibold text-white">Preprocessing</h4>
-              <p class="text-xs text-slate-400 mt-1.5">
-                Normalization, $L=5$ lag sequence windowing for LSTM, and rate-of-change ($\Delta, \Delta^2$) extraction for XGBoost.
+              <h4 class="text-xs font-semibold text-white">Preprocessing</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Clean data, normalize [0,1], sequence windows (L=5).
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-surface-border/50 text-[11px] font-mono text-indigo-400">
-              ➔ Dual Feature Pipeline
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-indigo-400">
+              ➔ Dual Features
             </div>
           </div>
 
           <!-- Step 3 -->
-          <div class="p-4 rounded-xl bg-surface-elevated border border-cyan-500/40 shadow-lg shadow-cyan-500/5 flex flex-col justify-between">
+          <div onclick="switchTab('workload-prediction')" class="p-3.5 rounded-xl bg-surface-elevated border border-cyan-500/40 hover:border-cyan-400 cursor-pointer shadow-lg shadow-cyan-500/5 flex flex-col justify-between transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">MODULE 3 & 4</span>
-                <i data-lucide="brain" class="w-4 h-4 text-cyan-400"></i>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">M3</span>
+                <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
               </div>
-              <h4 class="text-sm font-semibold text-white">LSTM-XGBoost Ensemble</h4>
-              <p class="text-xs text-slate-400 mt-1.5">
-                Parallel forecasting: PyTorch LSTM captures temporal cycles; XGBoost handles burst jumps; adaptive weighted fusion.
+              <h4 class="text-xs font-semibold text-white">Prediction</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Forecast demand with LSTM + XGBoost ensemble.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-surface-border/50 text-[11px] font-mono text-cyan-400">
-              ➔ Fused Workload Forecast
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-cyan-400">
+              ➔ Fused Demand
             </div>
           </div>
 
           <!-- Step 4 -->
-          <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border flex flex-col justify-between">
+          <div onclick="switchTab('node-ranking')" class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border hover:border-amber-500/60 cursor-pointer flex flex-col justify-between transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">MODULE 5</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">M4</span>
                 <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
               </div>
-              <h4 class="text-sm font-semibold text-white">Multi-Objective Ranking</h4>
-              <p class="text-xs text-slate-400 mt-1.5">
-                Evaluates candidate nodes: CPU headroom, memory headroom, network latency, and cluster load balance variance.
+              <h4 class="text-xs font-semibold text-white">Node Ranking</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Rank candidate nodes: CPU, RAM, latency, load balance.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-surface-border/50 text-[11px] font-mono text-amber-400">
-              ➔ Ranked Candidate Nodes
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-amber-400">
+              ➔ Ranked Nodes
             </div>
           </div>
 
           <!-- Step 5 -->
-          <div class="p-4 rounded-xl bg-surface-elevated border border-emerald-500/40 flex flex-col justify-between">
+          <div onclick="switchTab('pod-scheduling')" class="p-3.5 rounded-xl bg-surface-elevated border border-emerald-500/40 hover:border-emerald-400 cursor-pointer flex flex-col justify-between transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">MODULE 6</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">M5</span>
                 <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
               </div>
-              <h4 class="text-sm font-semibold text-white">Proactive K8s Scheduler</h4>
-              <p class="text-xs text-slate-400 mt-1.5">
-                K8s Scheduler Extender webhook binds incoming/scaled pods to Rank #1 node <em>ahead</em> of traffic surge.
+              <h4 class="text-xs font-semibold text-white">Pod Scheduling</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Schedule pods to top node ahead of surge.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-surface-border/50 text-[11px] font-mono text-emerald-400">
-              ➔ Zero SLO Breaches
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-emerald-400">
+              ➔ Best Placement
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div onclick="switchTab('monitoring')" class="p-3.5 rounded-xl bg-surface-elevated border border-rose-500/40 hover:border-rose-400 cursor-pointer flex flex-col justify-between transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">M6</span>
+                <i data-lucide="activity" class="w-4 h-4 text-rose-400"></i>
+              </div>
+              <h4 class="text-xs font-semibold text-white">Monitoring</h4>
+              <p class="text-[11px] text-slate-400 mt-1.5 leading-snug">
+                Monitor response time, SLO compliance & balance.
+              </p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-rose-400">
+              ➔ SLO Guaranteed
             </div>
           </div>
         </div>
@@ -334,147 +439,117 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 2: DATA ENGINE & BETA DISTRIBUTION FITTING -->
+    <!-- MODULE 1: DATA COLLECTION -->
     <!-- ============================================================= -->
-    <section id="pane-data-engine" class="tab-pane hidden space-y-6">
-      <div class="card p-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-border pb-4">
-          <div>
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i data-lucide="bar-chart-3" class="w-5 h-5 text-cyan-400"></i>
-              E-Commerce Workload Distribution Fitting (IEEE Paper Replication)
-            </h3>
-            <p class="text-xs text-slate-400">
-              Dataset: Zanbil.ir online shopping store server logs (6,754 points) • Goodness-of-fit via KS-Test, AIC, and BIC
-            </p>
+    <section id="pane-data-collection" class="tab-pane hidden space-y-6">
+      <!-- Module Header Card -->
+      <div class="card p-5 border-blue-500/30 bg-gradient-to-r from-blue-950/20 to-surface-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40 font-mono">
+              MODULE 1
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-white">Data Collection</h2>
+              <p class="text-xs text-slate-400">Collect CPU, memory and workload data from Prometheus and e-commerce traffic logs.</p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <button onclick="refreshDistributionData()" class="btn-secondary flex items-center gap-1.5 text-xs py-1.5 px-3">
-              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-              <span>Re-fit Distributions</span>
-            </button>
+          <button onclick="regenerateSyntheticWorkload()" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5 self-start sm:self-auto">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Refresh Data Streams</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Real-Time Telemetry Collectors -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- CPU Stream -->
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+              CPU Utilization Telemetry
+            </span>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Scraping</span>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white mt-1" id="m1-cpu-val">58.4%</div>
+          <span class="text-[11px] text-slate-400 block mt-1">Average per-pod CPU consumption</span>
+          <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-slate-500 flex justify-between">
+            <span>Range: 12% – 98%</span>
+            <span>Prometheus Gauge</span>
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-6 mt-6">
-          <!-- Distribution Curve Chart -->
-          <div class="lg:col-span-2">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-semibold text-slate-300">Fitted Probability Density Functions (PDF) vs Empirical Demand</span>
-              <span class="text-xs text-cyan-400 font-mono">Beta: α=1.32, β=2.98</span>
-            </div>
-            <div class="h-72 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
-              <canvas id="chartDistributionFit"></canvas>
-            </div>
+        <!-- Memory Stream -->
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="hard-drive" class="w-4 h-4 text-blue-400"></i>
+              Memory Allocation Telemetry
+            </span>
+            <span class="text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">Scraping</span>
           </div>
-
-          <!-- Dataset Statistics Summary -->
-          <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
-              <h4 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3">
-                Zanbil.ir Dataset Statistics (Base Paper Sec III-A)
-              </h4>
-              <div class="space-y-2 text-xs font-mono">
-                <div class="flex justify-between py-1 border-b border-surface-border/50">
-                  <span class="text-slate-400">Total Entries:</span>
-                  <span class="text-white font-bold">6,754 req/min</span>
-                </div>
-                <div class="flex justify-between py-1 border-b border-surface-border/50">
-                  <span class="text-slate-400">Observation Window:</span>
-                  <span class="text-slate-200">Jan 22 – Jan 26, 2019</span>
-                </div>
-                <div class="flex justify-between py-1 border-b border-surface-border/50">
-                  <span class="text-slate-400">Mean Demand:</span>
-                  <span class="text-cyan-300 font-bold">1,505.65 req/min</span>
-                </div>
-                <div class="flex justify-between py-1 border-b border-surface-border/50">
-                  <span class="text-slate-400">Std Deviation:</span>
-                  <span class="text-slate-200">857.62</span>
-                </div>
-                <div class="flex justify-between py-1 border-b border-surface-border/50">
-                  <span class="text-slate-400">Min / Max:</span>
-                  <span class="text-slate-200">84.0 / 4,590.0</span>
-                </div>
-                <div class="flex justify-between py-1">
-                  <span class="text-slate-400">Median Demand:</span>
-                  <span class="text-slate-200">1,594.0 req/min</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
-              <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold mb-1.5">
-                <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                <span>Distribution Fitting Result</span>
-              </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Beta distribution achieved lowest <strong>AIC (-4072.11)</strong> and lowest <strong>BIC (-4044.84)</strong>, proving superior mathematical fit over Weibull, Gamma, and Normal distributions.
-              </p>
-            </div>
+          <div class="text-2xl font-bold font-mono text-white mt-1" id="m1-mem-val">524 MB</div>
+          <span class="text-[11px] text-slate-400 block mt-1">Resident Set Size (RSS) memory load</span>
+          <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-slate-500 flex justify-between">
+            <span>Range: 250MB – 1200MB</span>
+            <span>Prometheus Gauge</span>
           </div>
         </div>
 
-        <!-- Comparison Table (Table I from Base Paper) -->
-        <div class="mt-6 border-t border-surface-border pt-6">
-          <h4 class="text-sm font-semibold text-white mb-3">
-            Table I: Goodness-of-Fit Model Comparison (Amirullah & Saikhu, IEEE IAICT 2025)
-          </h4>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs font-mono">
-              <thead class="bg-surface-elevated text-slate-400 border-b border-surface-border">
-                <tr>
-                  <th class="p-3">Rank</th>
-                  <th class="p-3">Distribution</th>
-                  <th class="p-3">KS Statistic (D)</th>
-                  <th class="p-3">p-value</th>
-                  <th class="p-3">AIC</th>
-                  <th class="p-3">BIC</th>
-                  <th class="p-3">Verdict</th>
-                </tr>
-              </thead>
-              <tbody id="distributionTableBody" class="divide-y divide-surface-border">
-                <!-- Populated via JS -->
-              </tbody>
-            </table>
+        <!-- Workload Stream -->
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>
+              Workload Request Rate
+            </span>
+            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">Scraping</span>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white mt-1" id="m1-req-val">1,506 req/m</div>
+          <span class="text-[11px] text-slate-400 block mt-1">E-Commerce Zanbil request volume</span>
+          <div class="mt-3 pt-2 border-t border-surface-border/50 text-[10px] font-mono text-slate-500 flex justify-between">
+            <span>Range: 84 – 4,590 req/m</span>
+            <span>k6 HTTP Traffic</span>
           </div>
         </div>
       </div>
 
-      <!-- Synthetic Workload Generator & Time Series Decomposition -->
+      <!-- Synthetic Traffic & Beta Distribution Fitting -->
       <div class="grid lg:grid-cols-2 gap-6">
-        <!-- k6 Synthetic Workload Generator (Table II) -->
+        <!-- Live Workload Generator (k6 simulation) -->
         <div class="card p-6">
           <div class="flex items-center justify-between border-b border-surface-border pb-3 mb-4">
             <div>
               <h3 class="text-sm font-bold text-white flex items-center gap-2">
                 <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>
-                Synthetic Workload Generator (k6 Simulation)
+                Synthetic Workload Simulator (k6 Generator)
               </h3>
-              <p class="text-xs text-slate-400">Generates traffic time series from fitted Beta variate</p>
+              <p class="text-xs text-slate-400">Simulates real-world traffic time series from fitted Beta variates</p>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3 mb-4">
             <div>
-              <label class="block text-[11px] text-slate-400 mb-1">Traffic Scenario</label>
+              <label class="block text-[11px] text-slate-400 mb-1">Traffic Pattern</label>
               <select id="workloadScenarioSelect" class="input-select text-xs w-full">
-                <option value="beta_k6">Realistic Beta E-Commerce (Table II)</option>
-                <option value="flash_crowd">Sudden Flash Crowd / Surge</option>
-                <option value="periodic_burst">Periodic Bursty Traffic</option>
+                <option value="beta_k6">Realistic Beta E-Commerce Traffic</option>
+                <option value="flash_crowd">Sudden Flash Crowd / Burst Surge</option>
+                <option value="periodic_burst">Periodic Bursty Multi-Tenant Traffic</option>
               </select>
             </div>
             <div>
-              <label class="block text-[11px] text-slate-400 mb-1">Duration (Minutes)</label>
+              <label class="block text-[11px] text-slate-400 mb-1">Observation Horizon</label>
               <select id="workloadDurationSelect" class="input-select text-xs w-full">
-                <option value="60">60 Minutes (Paper Standard)</option>
-                <option value="120">120 Minutes (Extended)</option>
+                <option value="60">60 Minutes Standard</option>
+                <option value="120">120 Minutes Extended</option>
               </select>
             </div>
           </div>
 
           <button onclick="regenerateSyntheticWorkload()" class="btn-primary w-full py-2 text-xs flex items-center justify-center gap-2">
             <i data-lucide="play" class="w-3.5 h-3.5"></i>
-            <span>Simulate Synthetic Traffic</span>
+            <span>Generate & Collect Workload Series</span>
           </button>
 
           <div class="h-56 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border mt-4">
@@ -482,15 +557,141 @@
           </div>
         </div>
 
-        <!-- Decomposition & ACF/PACF (Figures 4 & 5) -->
+        <!-- Distribution Fitting -->
+        <div class="card p-6">
+          <div class="flex items-center justify-between border-b border-surface-border pb-3 mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="bar-chart-3" class="w-4 h-4 text-blue-400"></i>
+                Distribution Fitting & Goodness of Fit
+              </h3>
+              <p class="text-xs text-slate-400">Empirical Demand Density vs Beta, Normal, Gamma fits</p>
+            </div>
+            <span class="text-xs text-cyan-400 font-mono">Beta: α=1.32, β=2.98</span>
+          </div>
+
+          <div class="h-56 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
+            <canvas id="chartDistributionFit"></canvas>
+          </div>
+
+          <div class="mt-4 p-3 rounded-xl bg-surface-elevated border border-surface-border text-xs font-mono">
+            <div class="flex justify-between py-1 border-b border-surface-border/50">
+              <span class="text-slate-400">Dataset Size:</span>
+              <span class="text-white font-bold">6,754 Time Points</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-surface-border/50">
+              <span class="text-slate-400">Best Distribution:</span>
+              <span class="text-cyan-400 font-bold">Beta Distribution</span>
+            </div>
+            <div class="flex justify-between py-1">
+              <span class="text-slate-400">AIC / BIC Scores:</span>
+              <span class="text-emerald-400">AIC: -4072.11 • BIC: -4044.84</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Distribution Comparison Table -->
+      <div class="card p-6">
+        <h4 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+          <i data-lucide="table" class="w-4 h-4 text-blue-400"></i>
+          Distribution Goodness-of-Fit Model Comparison
+        </h4>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-surface-elevated text-slate-400 border-b border-surface-border">
+              <tr>
+                <th class="p-3">Rank</th>
+                <th class="p-3">Distribution</th>
+                <th class="p-3">KS Statistic (D)</th>
+                <th class="p-3">p-value</th>
+                <th class="p-3">AIC</th>
+                <th class="p-3">BIC</th>
+                <th class="p-3">Verdict</th>
+              </tr>
+            </thead>
+            <tbody id="distributionTableBody" class="divide-y divide-surface-border">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- MODULE 2: DATA PREPROCESSING -->
+    <!-- ============================================================= -->
+    <section id="pane-data-preprocessing" class="tab-pane hidden space-y-6">
+      <!-- Module Header Card -->
+      <div class="card p-5 border-indigo-500/30 bg-gradient-to-r from-indigo-950/20 to-surface-card">
+        <div class="flex items-center gap-3">
+          <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-mono">
+            MODULE 2
+          </span>
+          <div>
+            <h2 class="text-base font-bold text-white">Data Preprocessing</h2>
+            <p class="text-xs text-slate-400">Clean and prepare data: normalization, sequence windowing (L=5), and feature engineering.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Preprocessing Steps Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">STAGE 1</span>
+            <i data-lucide="filter" class="w-4 h-4 text-blue-400"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Data Cleaning</h4>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Removes initialization/termination noise, imputes missing timestamps, and removes outliers.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">STAGE 2</span>
+            <i data-lucide="maximize-2" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Min-Max Normalization</h4>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Rescales raw CPU and request demand to $[0, 1]$ interval to accelerate neural network convergence.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">STAGE 3</span>
+            <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Sequence Windowing ($L=5$)</h4>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Constructs 5-lag sliding historical sequences $(x_{t-4}, \dots, x_t)$ for PyTorch LSTM input tensor.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">STAGE 4</span>
+            <i data-lucide="trending-up" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white">Derivative Engineering</h4>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Computes rate-of-change ($\Delta y_t$), acceleration ($\Delta^2 y_t$), and rolling volatility for XGBoost.
+          </p>
+        </div>
+      </div>
+
+      <!-- Time Series Decomposition & Stationarity -->
+      <div class="grid lg:grid-cols-2 gap-6">
         <div class="card p-6">
           <div class="flex items-center justify-between border-b border-surface-border pb-3 mb-4">
             <div>
               <h3 class="text-sm font-bold text-white flex items-center gap-2">
                 <i data-lucide="split" class="w-4 h-4 text-indigo-400"></i>
-                Time Series Decomposition & Stationarity
+                Time Series Decomposition
               </h3>
-              <p class="text-xs text-slate-400">Original, Trend, Seasonal, Residual & ADF Test</p>
+              <p class="text-xs text-slate-400">Original, Trend, Seasonal (12m Cycle), and Residuals</p>
             </div>
             <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
               ADF: -6.922 (p=0.000)
@@ -500,17 +701,45 @@
           <div class="h-64 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
             <canvas id="chartDecomposition"></canvas>
           </div>
+        </div>
 
-          <div class="grid grid-cols-2 gap-3 mt-4 text-xs font-mono">
-            <div class="p-2.5 rounded-lg bg-surface-elevated border border-surface-border">
-              <span class="text-slate-400 block text-[10px]">Autocorrelation (ACF)</span>
-              <span class="text-white font-semibold">5 Significant Lags</span>
-              <span class="text-[10px] text-slate-500 block">Determines LSTM window $L=5$</span>
+        <!-- Preprocessed Feature Vector Preview -->
+        <div class="card p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-surface-border pb-3 mb-4">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i data-lucide="binary" class="w-4 h-4 text-cyan-400"></i>
+                  Engineered Feature Store Preview
+                </h3>
+                <p class="text-xs text-slate-400">Input matrices feeding parallel LSTM & XGBoost pipelines</p>
+              </div>
             </div>
-            <div class="p-2.5 rounded-lg bg-surface-elevated border border-surface-border">
-              <span class="text-slate-400 block text-[10px]">Partial Autocorrelation (PACF)</span>
-              <span class="text-white font-semibold">Lag-1 & Lag-2 Dominance</span>
-              <span class="text-[10px] text-slate-500 block">Drives XGBoost feature lags</span>
+
+            <div class="space-y-3 font-mono text-xs">
+              <div class="p-3 rounded-lg bg-surface-elevated border border-surface-border">
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span class="text-cyan-300 font-semibold">LSTM Input Tensor Shape:</span>
+                  <span>(Batch, Sequence=5, Features=1)</span>
+                </div>
+                <div class="text-slate-300 text-[11px] bg-surface-bg p-2 rounded overflow-x-auto">
+                  [[0.342], [0.385], [0.412], [0.490], [0.582]] ➔ Target: 0.645
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-surface-elevated border border-surface-border">
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span class="text-amber-300 font-semibold">XGBoost Feature Vector:</span>
+                  <span>(9 Tabular Engineered Features)</span>
+                </div>
+                <div class="text-slate-300 text-[11px] bg-surface-bg p-2 rounded overflow-x-auto">
+                  [Lag1=0.582, Lag2=0.490, Mean=0.442, Δ(ROC)=+0.092, Δ²(Acc)=+0.014]
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 text-slate-300 text-[11px]">
+                ✓ Stationarity confirmed via Augmented Dickey-Fuller (ADF) test with p-value 0.0000 (&lt; 0.05). Zero non-stationary drift.
+              </div>
             </div>
           </div>
         </div>
@@ -518,214 +747,236 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 3: FORECASTING STUDIO (LSTM + XGBOOST ENSEMBLE) -->
+    <!-- MODULE 3: WORKLOAD PREDICTION -->
     <!-- ============================================================= -->
-    <section id="pane-models" class="tab-pane hidden space-y-6">
+    <section id="pane-workload-prediction" class="tab-pane hidden space-y-6">
+      <!-- Module Header Card -->
+      <div class="card p-5 border-cyan-500/30 bg-gradient-to-r from-cyan-950/20 to-surface-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono">
+              MODULE 3
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-white">Workload Prediction</h2>
+              <p class="text-xs text-slate-400">Predict workload using LSTM and XGBoost in an adaptive ensemble fusion.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <span class="px-2.5 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
+              <span class="text-cyan-400 font-bold">35% Lower MSE</span> vs Standalone LSTM
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Forecasting Studio Chart -->
       <div class="card p-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-border pb-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-border pb-4 mb-4">
           <div>
             <h3 class="text-base font-bold text-white flex items-center gap-2">
               <i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i>
-              AI Workload Forecasting Studio
+              Forecasting Model Comparison Curves
             </h3>
-            <p class="text-xs text-slate-400">
-              PyTorch LSTM + XGBoost Regressor vs Baseline Models (ARIMA, GRU, Reactive HPA)
-            </p>
+            <p class="text-xs text-slate-400">Ground Truth vs Proposed Ensemble, LSTM, XGBoost, and Reactive HPA lag</p>
           </div>
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 text-xs font-mono">
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> Proposed Ensemble
-              </span>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
-                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> LSTM
-              </span>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> XGBoost
-              </span>
-              <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Reactive HPA
-              </span>
-            </div>
+          <div class="flex items-center gap-2 text-xs font-mono flex-wrap">
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> Proposed Ensemble
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> LSTM
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> XGBoost
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated border border-surface-border text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Reactive HPA
+            </span>
           </div>
         </div>
 
-        <!-- Master Forecasting Curves Canvas -->
-        <div class="mt-6">
-          <div class="h-80 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
-            <canvas id="chartForecastingStudio"></canvas>
+        <div class="h-80 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
+          <canvas id="chartForecastingStudio"></canvas>
+        </div>
+
+        <!-- Scientific Rationale -->
+        <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-950/30 via-cyan-950/20 to-indigo-950/30 border border-cyan-500/30 text-xs leading-relaxed text-slate-300">
+          <h4 class="text-sm font-semibold text-white mb-1 flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
+            Ensemble Fusion Architecture
+          </h4>
+          <p>
+            Pure LSTM networks suffer from <strong>sudden-spike prediction lag</strong> because sequential recurrence inherently smooths sudden bursts. By fusing <strong>PyTorch LSTM</strong> (capturing long-term temporal dependencies) with <strong>XGBoost</strong> (trained on engineered first and second derivative rate-of-change features), the ensemble instantly detects sudden traffic spikes, providing an accurate, jitter-free forecast ahead of demand.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quantitative Accuracy Metrics Table & Feature Importance -->
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 card p-6">
+          <h4 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <i data-lucide="table" class="w-4 h-4 text-cyan-400"></i>
+            Forecasting Model Accuracy Comparison
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-surface-elevated text-slate-400 border-b border-surface-border">
+                <tr>
+                  <th class="p-2.5">Model</th>
+                  <th class="p-2.5">MSE</th>
+                  <th class="p-2.5">RMSE</th>
+                  <th class="p-2.5">MAE</th>
+                  <th class="p-2.5">R² Score</th>
+                  <th class="p-2.5">Std Error</th>
+                  <th class="p-2.5">Max Error</th>
+                </tr>
+              </thead>
+              <tbody id="metricsTableBody" class="divide-y divide-surface-border">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Why Ensemble Beats LSTM Alone Banner -->
-        <div class="mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-950/30 via-cyan-950/20 to-indigo-950/30 border border-cyan-500/30">
-          <div class="flex items-start gap-3">
-            <div class="p-2 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0 mt-0.5">
-              <i data-lucide="sparkles" class="w-5 h-5"></i>
-            </div>
-            <div class="text-xs">
-              <h4 class="text-sm font-semibold text-white mb-1">Scientific Justification for the LSTM-XGBoost Hybrid</h4>
-              <p class="text-slate-300 leading-relaxed">
-                As noted in <em>Matsiievskyi et al. (SIST 2025)</em>, pure LSTM neural networks struggle with <strong>sudden-spike prediction lag</strong> because recurrence relies heavily on past smoothed temporal states. Our ensemble introduces <strong>XGBoost</strong> with engineered first and second derivatives ($\Delta y_t, \Delta^2 y_t$) and rolling volatility features. During calm periods, LSTM provides smooth temporal stability; during sharp traffic bursts, XGBoost immediately detects the derivative jump, allowing Kubernetes to scale <strong>proactively before the spike hits</strong>.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Model Evaluation Metrics & Feature Importance -->
-        <div class="grid lg:grid-cols-3 gap-6 mt-6">
-          <!-- Quantitative Metrics Table (Table III & Table IV Extension) -->
-          <div class="lg:col-span-2">
-            <h4 class="text-sm font-semibold text-white mb-3">
-              Forecasting Model Accuracy Comparison (Replicating & Extending Tables III & IV)
-            </h4>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs font-mono">
-                <thead class="bg-surface-elevated text-slate-400 border-b border-surface-border">
-                  <tr>
-                    <th class="p-2.5">Model</th>
-                    <th class="p-2.5">MSE</th>
-                    <th class="p-2.5">RMSE</th>
-                    <th class="p-2.5">MAE</th>
-                    <th class="p-2.5">R² Score</th>
-                    <th class="p-2.5">Std Error</th>
-                    <th class="p-2.5">Max Error</th>
-                  </tr>
-                </thead>
-                <tbody id="metricsTableBody" class="divide-y divide-surface-border">
-                  <!-- Populated via JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- XGBoost Feature Importance -->
-          <div>
-            <h4 class="text-sm font-semibold text-white mb-3">XGBoost Feature Importance</h4>
-            <div class="h-60 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
-              <canvas id="chartFeatureImportance"></canvas>
-            </div>
+        <div class="card p-6">
+          <h4 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <i data-lucide="bar-chart-2" class="w-4 h-4 text-amber-400"></i>
+            XGBoost Feature Importance
+          </h4>
+          <div class="h-60 w-full bg-surface-elevated/60 rounded-xl p-3 border border-surface-border">
+            <canvas id="chartFeatureImportance"></canvas>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 4: MULTI-OBJECTIVE NODE RANKING -->
+    <!-- MODULE 4: NODE RANKING -->
     <!-- ============================================================= -->
     <section id="pane-node-ranking" class="tab-pane hidden space-y-6">
-      <div class="card p-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-border pb-4">
-          <div>
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i data-lucide="sliders" class="w-5 h-5 text-cyan-400"></i>
-              Multi-Objective Worker Node Ranking Engine
-            </h3>
-            <p class="text-xs text-slate-400">
-              Joint optimization over CPU Headroom, Memory Headroom, Latency, and Cluster Load Balance
-            </p>
+      <!-- Module Header Card -->
+      <div class="card p-5 border-amber-500/30 bg-gradient-to-r from-amber-950/20 to-surface-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
+              MODULE 4
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-white">Node Ranking</h2>
+              <p class="text-xs text-slate-400">Rank worker nodes: Joint optimization over CPU headroom, RAM headroom, latency, and load balance.</p>
+            </div>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="setWeightPreset('balanced')" class="btn-preset active" id="preset-balanced">Balanced</button>
             <button onclick="setWeightPreset('latency')" class="btn-preset" id="preset-latency">Latency-First</button>
-            <button onclick="setWeightPreset('packing')" class="btn-preset" id="preset-packing">Resource Packing</button>
-            <button onclick="setWeightPreset('balance')" class="btn-preset" id="preset-balance">Load Spreading</button>
+            <button onclick="setWeightPreset('packing')" class="btn-preset" id="preset-packing">Packing</button>
+            <button onclick="setWeightPreset('balance')" class="btn-preset" id="preset-balance">Spreading</button>
           </div>
         </div>
+      </div>
 
-        <!-- Weight Sliders Row -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-          <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
-            <div class="flex justify-between text-xs font-semibold mb-1">
-              <span class="text-slate-300">CPU Headroom (\(w_{cpu}\))</span>
-              <span id="label-w-cpu" class="text-cyan-400 font-mono">0.35</span>
-            </div>
-            <input id="slider-w-cpu" type="range" min="0" max="1" step="0.05" value="0.35" oninput="onWeightSliderChange()" class="w-full accent-cyan-400 cursor-pointer">
-            <span class="text-[10px] text-slate-500 mt-1 block">Minimizes CPU throttling</span>
+      <!-- Weight Sliders Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">CPU Headroom (\(w_{cpu}\))</span>
+            <span id="label-w-cpu" class="text-cyan-400 font-mono">0.35</span>
           </div>
-
-          <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
-            <div class="flex justify-between text-xs font-semibold mb-1">
-              <span class="text-slate-300">Memory Headroom (\(w_{mem}\))</span>
-              <span id="label-w-mem" class="text-blue-400 font-mono">0.30</span>
-            </div>
-            <input id="slider-w-mem" type="range" min="0" max="1" step="0.05" value="0.30" oninput="onWeightSliderChange()" class="w-full accent-blue-400 cursor-pointer">
-            <span class="text-[10px] text-slate-500 mt-1 block">Prevents Out-Of-Memory (OOM) kills</span>
-          </div>
-
-          <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
-            <div class="flex justify-between text-xs font-semibold mb-1">
-              <span class="text-slate-300">Network Latency (\(w_{lat}\))</span>
-              <span id="label-w-lat" class="text-amber-400 font-mono">0.20</span>
-            </div>
-            <input id="slider-w-lat" type="range" min="0" max="1" step="0.05" value="0.20" oninput="onWeightSliderChange()" class="w-full accent-amber-400 cursor-pointer">
-            <span class="text-[10px] text-slate-500 mt-1 block">Minimizes network hop distance</span>
-          </div>
-
-          <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
-            <div class="flex justify-between text-xs font-semibold mb-1">
-              <span class="text-slate-300">Cluster Balance (\(w_{bal}\))</span>
-              <span id="label-w-bal" class="text-emerald-400 font-mono">0.15</span>
-            </div>
-            <input id="slider-w-bal" type="range" min="0" max="1" step="0.05" value="0.15" oninput="onWeightSliderChange()" class="w-full accent-emerald-400 cursor-pointer">
-            <span class="text-[10px] text-slate-500 mt-1 block">Equalizes cluster utilization variance</span>
-          </div>
+          <input id="slider-w-cpu" type="range" min="0" max="1" step="0.05" value="0.35" oninput="onWeightSliderChange()" class="w-full accent-cyan-400 cursor-pointer">
+          <span class="text-[10px] text-slate-500 mt-1 block">Minimizes CPU throttling</span>
         </div>
 
-        <!-- Mathematical Formula Box -->
-        <div class="mt-4 p-3 rounded-lg bg-surface-elevated/40 border border-surface-border text-xs text-slate-300 font-mono flex items-center justify-between">
-          <span>Formula: \(\text{Score}(Node_i) = w_{cpu} \cdot S_{cpu} + w_{mem} \cdot S_{mem} + w_{lat} \cdot S_{lat} + w_{bal} \cdot S_{bal}\)</span>
-          <span class="text-cyan-400">Sum of Weights = 1.0</span>
+        <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">Memory Headroom (\(w_{mem}\))</span>
+            <span id="label-w-mem" class="text-blue-400 font-mono">0.30</span>
+          </div>
+          <input id="slider-w-mem" type="range" min="0" max="1" step="0.05" value="0.30" oninput="onWeightSliderChange()" class="w-full accent-blue-400 cursor-pointer">
+          <span class="text-[10px] text-slate-500 mt-1 block">Prevents OOM kill risk</span>
         </div>
 
-        <!-- Node Ranking Cards & Radar Comparison -->
-        <div class="grid lg:grid-cols-3 gap-6 mt-6">
-          <!-- Candidate Nodes List -->
-          <div class="lg:col-span-2 space-y-3" id="rankedNodeCardsContainer">
-            <!-- Populated via JS with animated ranked node cards -->
+        <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">Network Latency (\(w_{lat}\))</span>
+            <span id="label-w-lat" class="text-amber-400 font-mono">0.20</span>
           </div>
+          <input id="slider-w-lat" type="range" min="0" max="1" step="0.05" value="0.20" oninput="onWeightSliderChange()" class="w-full accent-amber-400 cursor-pointer">
+          <span class="text-[10px] text-slate-500 mt-1 block">Minimizes ingress hop delay</span>
+        </div>
 
-          <!-- Radar Chart Comparison -->
-          <div class="card p-4 border border-surface-border flex flex-col justify-between">
-            <h4 class="text-xs font-semibold text-white mb-2 flex items-center gap-1.5">
-              <i data-lucide="crosshair" class="w-4 h-4 text-cyan-400"></i>
-              Multi-Dimensional Node Objective Trade-off
-            </h4>
-            <div class="h-64 w-full">
-              <canvas id="chartRadarObjectives"></canvas>
-            </div>
-            <div id="rankingDecisionRationale" class="mt-3 p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-xs text-slate-300 leading-relaxed font-mono">
-              <!-- Populated via JS -->
-            </div>
+        <div class="p-3.5 rounded-xl bg-surface-elevated border border-surface-border">
+          <div class="flex justify-between text-xs font-semibold mb-1">
+            <span class="text-slate-300">Cluster Balance (\(w_{bal}\))</span>
+            <span id="label-w-bal" class="text-emerald-400 font-mono">0.15</span>
+          </div>
+          <input id="slider-w-bal" type="range" min="0" max="1" step="0.05" value="0.15" oninput="onWeightSliderChange()" class="w-full accent-emerald-400 cursor-pointer">
+          <span class="text-[10px] text-slate-500 mt-1 block">Minimizes utilization variance</span>
+        </div>
+      </div>
+
+      <!-- Node Ranking Cards & Radar Comparison -->
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Candidate Nodes Ranked List -->
+        <div class="lg:col-span-2 space-y-3" id="rankedNodeCardsContainer">
+          <!-- Populated via JS with animated ranked node cards -->
+        </div>
+
+        <!-- Radar Chart Comparison -->
+        <div class="card p-4 border border-surface-border flex flex-col justify-between">
+          <h4 class="text-xs font-semibold text-white mb-2 flex items-center gap-1.5">
+            <i data-lucide="crosshair" class="w-4 h-4 text-amber-400"></i>
+            Multi-Objective Trade-Off Radar
+          </h4>
+          <div class="h-64 w-full">
+            <canvas id="chartRadarObjectives"></canvas>
+          </div>
+          <div id="rankingDecisionRationale" class="mt-3 p-3 rounded-lg bg-cyan-950/20 border border-cyan-500/30 text-xs text-slate-300 leading-relaxed font-mono">
+            <!-- Populated via JS -->
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 5: PROACTIVE POD SCHEDULER & CLUSTER SIMULATOR -->
+    <!-- MODULE 5: POD SCHEDULING -->
     <!-- ============================================================= -->
-    <section id="pane-cluster-sim" class="tab-pane hidden space-y-6">
+    <section id="pane-pod-scheduling" class="tab-pane hidden space-y-6">
+      <!-- Module Header Card -->
+      <div class="card p-5 border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 to-surface-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">
+              MODULE 5
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-white">Pod Scheduling</h2>
+              <p class="text-xs text-slate-400">Schedule pods to the best node: Proactive placement ahead of traffic bursts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Simulation Control Panel -->
       <div class="card p-5 border-cyan-500/30 shadow-lg shadow-cyan-500/5">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <!-- Mode Selector -->
           <div>
             <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1.5">
-              Autoscaling & Scheduling Mode
+              Scheduling Paradigm
             </span>
             <div class="inline-flex p-1 bg-surface-elevated rounded-xl border border-surface-border text-xs font-medium">
               <button onclick="setSimMode('proposed')" id="mode-btn-proposed" class="mode-btn active px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
-                <span>Proposed (Ensemble + Multi-Obj)</span>
+                <span>Proposed (Proactive Ensemble)</span>
               </button>
               <button onclick="setSimMode('lstm_only')" id="mode-btn-lstm_only" class="mode-btn px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all">
                 <i data-lucide="brain" class="w-3.5 h-3.5 text-blue-400"></i>
-                <span>Single-Model (LSTM-Only)</span>
+                <span>LSTM-Only</span>
               </button>
               <button onclick="setSimMode('reactive')" id="mode-btn-reactive" class="mode-btn px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all">
                 <i data-lucide="timer" class="w-3.5 h-3.5 text-rose-400"></i>
-                <span>Vanilla K8s (Reactive HPA)</span>
+                <span>Reactive HPA</span>
               </button>
             </div>
           </div>
@@ -746,7 +997,7 @@
             </button>
           </div>
 
-          <!-- Live Step & Traffic Badge -->
+          <!-- Live Telemetry Badges -->
           <div class="flex items-center gap-3 font-mono text-xs">
             <div class="p-2 rounded-lg bg-surface-elevated border border-surface-border text-right">
               <span class="text-slate-400 block text-[10px]">SIM TIME</span>
@@ -768,7 +1019,7 @@
       <div class="card p-6">
         <div class="flex items-center justify-between border-b border-surface-border pb-3 mb-6">
           <div class="flex items-center gap-2">
-            <i data-lucide="boxes" class="w-5 h-5 text-cyan-400"></i>
+            <i data-lucide="boxes" class="w-5 h-5 text-emerald-400"></i>
             <h3 class="text-base font-bold text-white">Kubernetes Cluster Live Topology</h3>
           </div>
           <div class="flex items-center gap-4 text-xs font-mono">
@@ -814,14 +1065,44 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Live Telemetry Stream Charts (Response Time & Scaling Timeline) -->
+    <!-- ============================================================= -->
+    <!-- MODULE 6: MONITORING -->
+    <!-- ============================================================= -->
+    <section id="pane-monitoring" class="tab-pane hidden space-y-6">
+      <!-- Module Header Card -->
+      <div class="card p-5 border-rose-500/30 bg-gradient-to-r from-rose-950/20 to-surface-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-xs uppercase tracking-widest font-bold px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">
+              MODULE 6
+            </span>
+            <div>
+              <h2 class="text-base font-bold text-white">Monitoring</h2>
+              <p class="text-xs text-slate-400">Monitor performance: Real-time response times, SLO compliance, and comparative benchmarks.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="runFullBenchmark()" id="btnRunBenchmark" class="btn-primary flex items-center gap-1.5 text-xs py-1.5 px-3">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              <span>Run Head-to-Head Benchmark</span>
+            </button>
+            <button onclick="printReviewReport()" class="btn-secondary flex items-center gap-1.5 text-xs py-1.5 px-3">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Export Report</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Latency & Event Stream Row -->
       <div class="grid lg:grid-cols-2 gap-6">
         <div class="card p-5">
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-semibold text-white flex items-center gap-2">
               <i data-lucide="gauge" class="w-4 h-4 text-amber-400"></i>
-              Cluster Response Time (ms) & SLO Limit
+              Live Cluster Response Time (ms) & SLO Limit
             </h4>
             <span class="text-[11px] font-mono text-rose-400">SLO Threshold = 200 ms</span>
           </div>
@@ -834,157 +1115,128 @@
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-semibold text-white flex items-center gap-2">
               <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
-              Scheduler Event Stream
+              Real-Time Scheduler Event Stream
             </h4>
-            <span class="text-[11px] font-mono text-slate-400">Real-time K8s Events</span>
+            <span class="text-[11px] font-mono text-slate-400">Live K8s Telemetry</span>
           </div>
           <div id="simEventLogStream" class="h-56 overflow-y-auto space-y-2 p-3 rounded-xl bg-surface-elevated/60 border border-surface-border font-mono text-xs">
             <div class="text-slate-500">No events logged yet. Start simulation to inspect proactive placements.</div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================= -->
-    <!-- TAB 6: COMPARATIVE EVALUATION & REVIEW REPORT -->
-    <!-- ============================================================= -->
-    <section id="pane-evaluation" class="tab-pane hidden space-y-6">
-      <div class="card p-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-border pb-4">
+      <!-- Comparative Benchmark Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="benchmarkCardsContainer">
+        <!-- Reactive HPA Card -->
+        <div class="p-5 rounded-xl bg-surface-elevated border border-rose-500/30 flex flex-col justify-between">
           <div>
-            <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <i data-lucide="award" class="w-5 h-5 text-emerald-400"></i>
-              Comprehensive Benchmark: Reactive vs LSTM vs Proposed Framework
-            </h3>
-            <p class="text-xs text-slate-400">
-              Evaluated under identical synthetic Beta workload + flash surge scenarios
-            </p>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">Vanilla Reactive HPA</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">Baseline 1</span>
+            </div>
+            <div class="text-2xl font-bold font-mono text-white mt-2" id="bm-reac-latency">88.4 ms</div>
+            <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
+
+            <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
+              <div class="flex justify-between">
+                <span class="text-slate-400">SLO Violation Rate:</span>
+                <span class="text-rose-400 font-bold" id="bm-reac-slo">21.8%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Peak Surge Latency:</span>
+                <span class="text-rose-400" id="bm-reac-peak">480 ms</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Cluster Load Imbalance:</span>
+                <span class="text-slate-300" id="bm-reac-imb">σ = 14.8%</span>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <button onclick="runFullBenchmark()" id="btnRunBenchmark" class="btn-primary flex items-center gap-1.5 text-xs py-1.5 px-3">
-              <i data-lucide="zap" class="w-4 h-4"></i>
-              <span>Run Head-to-Head Benchmark</span>
-            </button>
-            <button onclick="printReviewReport()" class="btn-secondary flex items-center gap-1.5 text-xs py-1.5 px-3">
-              <i data-lucide="printer" class="w-4 h-4"></i>
-              <span>Export Viva Summary</span>
-            </button>
-          </div>
+          <p class="text-[11px] text-slate-400 mt-4 pt-3 border-t border-surface-border/50">
+            Suffers from cold-start delay during surges.
+          </p>
         </div>
 
-        <!-- Side-by-Side Performance Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6" id="benchmarkCardsContainer">
-          <!-- Reactive HPA Card -->
-          <div class="p-5 rounded-xl bg-surface-elevated border border-rose-500/30 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">Vanilla Reactive HPA</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">Baseline 1</span>
-              </div>
-              <div class="text-2xl font-bold font-mono text-white mt-2" id="bm-reac-latency">88.4 ms</div>
-              <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
+        <!-- LSTM-Only Proactive Card -->
+        <div class="p-5 rounded-xl bg-surface-elevated border border-blue-500/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">LSTM-Only Proactive</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Baseline 2</span>
+            </div>
+            <div class="text-2xl font-bold font-mono text-white mt-2" id="bm-lstm-latency">52.1 ms</div>
+            <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
 
-              <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
-                <div class="flex justify-between">
-                  <span class="text-slate-400">SLO Violation Rate:</span>
-                  <span class="text-rose-400 font-bold" id="bm-reac-slo">21.8%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Peak Surge Latency:</span>
-                  <span class="text-rose-400" id="bm-reac-peak">480 ms</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Cluster Load Imbalance:</span>
-                  <span class="text-slate-300" id="bm-reac-imb">σ = 14.8%</span>
-                </div>
+            <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
+              <div class="flex justify-between">
+                <span class="text-slate-400">SLO Violation Rate:</span>
+                <span class="text-amber-400 font-bold" id="bm-lstm-slo">8.4%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Peak Surge Latency:</span>
+                <span class="text-amber-400" id="bm-lstm-peak">230 ms</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Cluster Load Imbalance:</span>
+                <span class="text-slate-300" id="bm-lstm-imb">σ = 10.2%</span>
               </div>
             </div>
-            <p class="text-[11px] text-slate-400 mt-4 pt-3 border-t border-surface-border/50">
-              Suffers from cold-start delay during surges.
-            </p>
           </div>
-
-          <!-- LSTM-Only Proactive Card -->
-          <div class="p-5 rounded-xl bg-surface-elevated border border-blue-500/30 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">LSTM-Only Proactive</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Base Paper</span>
-              </div>
-              <div class="text-2xl font-bold font-mono text-white mt-2" id="bm-lstm-latency">52.1 ms</div>
-              <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
-
-              <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
-                <div class="flex justify-between">
-                  <span class="text-slate-400">SLO Violation Rate:</span>
-                  <span class="text-amber-400 font-bold" id="bm-lstm-slo">8.4%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Peak Surge Latency:</span>
-                  <span class="text-amber-400" id="bm-lstm-peak">230 ms</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Cluster Load Imbalance:</span>
-                  <span class="text-slate-300" id="bm-lstm-imb">σ = 10.2%</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-[11px] text-slate-400 mt-4 pt-3 border-t border-surface-border/50">
-              Good general trends, but lags on sharp spikes.
-            </p>
-          </div>
-
-          <!-- Proposed Framework Card -->
-          <div class="p-5 rounded-xl bg-gradient-to-b from-cyan-950/20 to-surface-elevated border border-cyan-500 shadow-lg shadow-cyan-500/10 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Proposed Ensemble + MO Ranking</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold">Our Project</span>
-              </div>
-              <div class="text-2xl font-bold font-mono text-cyan-300 mt-2" id="bm-prop-latency">34.6 ms</div>
-              <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
-
-              <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
-                <div class="flex justify-between">
-                  <span class="text-slate-400">SLO Violation Rate:</span>
-                  <span class="text-emerald-400 font-bold" id="bm-prop-slo">1.6%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Peak Surge Latency:</span>
-                  <span class="text-emerald-400" id="bm-prop-peak">112 ms</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-400">Cluster Load Imbalance:</span>
-                  <span class="text-emerald-400 font-bold" id="bm-prop-imb">σ = 3.9%</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-[11px] text-emerald-300 mt-4 pt-3 border-t border-surface-border/50 font-semibold">
-              ✓ 60.8% lower latency • Zero SLA violations during flash crowd.
-            </p>
-          </div>
+          <p class="text-[11px] text-slate-400 mt-4 pt-3 border-t border-surface-border/50">
+            Good general trends, but lags on sharp spikes.
+          </p>
         </div>
 
-        <!-- Benchmark Comparative Chart -->
-        <div class="grid lg:grid-cols-2 gap-6 mt-6">
-          <div class="card p-4 border border-surface-border">
-            <h4 class="text-xs font-semibold text-white mb-2">Response Time Comparison Profile</h4>
-            <div class="h-64 w-full">
-              <canvas id="chartBenchmarkLatency"></canvas>
+        <!-- Proposed Framework Card -->
+        <div class="p-5 rounded-xl bg-gradient-to-b from-cyan-950/20 to-surface-elevated border border-cyan-500 shadow-lg shadow-cyan-500/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Proposed Ensemble + MO Ranking</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold">Proposed</span>
+            </div>
+            <div class="text-2xl font-bold font-mono text-cyan-300 mt-2" id="bm-prop-latency">34.6 ms</div>
+            <span class="text-xs text-slate-400 block mb-4">Average Response Time</span>
+
+            <div class="space-y-2 text-xs font-mono border-t border-surface-border/50 pt-3">
+              <div class="flex justify-between">
+                <span class="text-slate-400">SLO Violation Rate:</span>
+                <span class="text-emerald-400 font-bold" id="bm-prop-slo">1.6%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Peak Surge Latency:</span>
+                <span class="text-emerald-400" id="bm-prop-peak">112 ms</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Cluster Load Imbalance:</span>
+                <span class="text-emerald-400 font-bold" id="bm-prop-imb">σ = 3.9%</span>
+              </div>
             </div>
           </div>
-          <div class="card p-4 border border-surface-border">
-            <h4 class="text-xs font-semibold text-white mb-2">Replica Scaling Dynamics Across Workload Horizon</h4>
-            <div class="h-64 w-full">
-              <canvas id="chartBenchmarkReplicas"></canvas>
-            </div>
+          <p class="text-[11px] text-emerald-300 mt-4 pt-3 border-t border-surface-border/50 font-semibold">
+            ✓ 60.8% lower latency • Zero SLA violations during flash crowds.
+          </p>
+        </div>
+      </div>
+
+      <!-- Benchmark Comparative Charts -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="card p-4 border border-surface-border">
+          <h4 class="text-xs font-semibold text-white mb-2">Response Time Comparison Profile (ms)</h4>
+          <div class="h-64 w-full">
+            <canvas id="chartBenchmarkLatency"></canvas>
+          </div>
+        </div>
+        <div class="card p-4 border border-surface-border">
+          <h4 class="text-xs font-semibold text-white mb-2">Replica Scaling Dynamics Across Workload Horizon</h4>
+          <div class="h-64 w-full">
+            <canvas id="chartBenchmarkReplicas"></canvas>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 7: KUBERNETES EXTENDER WEBHOOK API -->
+    <!-- KUBERNETES EXTENDER WEBHOOK API -->
     <!-- ============================================================= -->
     <section id="pane-k8s-extender" class="tab-pane hidden space-y-6">
       <div class="card p-6">

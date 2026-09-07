@@ -370,12 +370,27 @@ function switchTab(tabId) {
   const targetPane = document.getElementById(`pane-${tabId}`);
   if (targetPane) targetPane.classList.remove('hidden');
 
-  if (tabId === 'data-engine' && State.currentWorkload) {
-    AppCharts.renderSyntheticWorkload(State.currentWorkload);
-  } else if (tabId === 'models' && State.currentForecast) {
-    AppCharts.renderForecastingStudio(State.currentForecast);
-  } else if (tabId === 'node-ranking' && State.currentRankings) {
-    AppCharts.renderNodeRadar(State.currentRankings.rankings);
+  if (tabId === 'data-collection') {
+    if (State.currentWorkload) AppCharts.renderSyntheticWorkload(State.currentWorkload);
+    if (State.fitData) AppCharts.renderDistributionFit(State.fitData.curve_data);
+  } else if (tabId === 'data-preprocessing') {
+    if (State.decompData) AppCharts.renderDecomposition(State.decompData.decomposition);
+  } else if (tabId === 'workload-prediction') {
+    if (State.currentForecast) {
+      AppCharts.renderForecastingStudio(State.currentForecast);
+      AppCharts.renderFeatureImportance(State.currentForecast.feature_importance);
+    }
+  } else if (tabId === 'node-ranking') {
+    if (State.currentRankings) {
+      AppCharts.renderNodeRadar(State.currentRankings.rankings);
+      ClusterView.renderRankedNodeCards(State.currentRankings.rankings);
+    }
+  } else if (tabId === 'pod-scheduling') {
+    ClusterView.renderNodes(State.clusterNodes, null, State.activePods);
+  } else if (tabId === 'monitoring') {
+    if (State.benchmarkData) {
+      AppCharts.renderBenchmarkCharts(State.benchmarkData);
+    }
   }
 
   if (window.lucide) lucide.createIcons();
@@ -393,6 +408,7 @@ function toggleModal(modalId) {
 async function loadInitialData() {
   try {
     const fitData = await apiFetch('/api/data/fit-distributions');
+    State.fitData = fitData;
     populateDistributionTable(fitData.comparison_table);
     AppCharts.renderDistributionFit(fitData.curve_data);
 
@@ -405,6 +421,28 @@ async function loadInitialData() {
     AppCharts.renderFeatureImportance(State.currentForecast.feature_importance);
   } catch (err) {
     console.error('Error loading initial data:', err);
+  }
+}
+
+function updateM1Telemetry() {
+  if (!State.currentWorkload) return;
+  const cpus = State.currentWorkload.cpu_usage_pct || [];
+  const mems = State.currentWorkload.memory_usage_mb || [];
+  const reqs = State.currentWorkload.requests_per_minute || [];
+  if (cpus.length > 0) {
+    const avgCpu = (cpus.reduce((a,b)=>a+b,0)/cpus.length).toFixed(1);
+    const cpuEl = document.getElementById('m1-cpu-val');
+    if (cpuEl) cpuEl.innerText = `${avgCpu}%`;
+  }
+  if (mems.length > 0) {
+    const avgMem = Math.round(mems.reduce((a,b)=>a+b,0)/mems.length);
+    const memEl = document.getElementById('m1-mem-val');
+    if (memEl) memEl.innerText = `${avgMem} MB`;
+  }
+  if (reqs.length > 0) {
+    const avgReq = Math.round(reqs.reduce((a,b)=>a+b,0)/reqs.length);
+    const reqEl = document.getElementById('m1-req-val');
+    if (reqEl) reqEl.innerText = `${avgReq.toLocaleString()} req/m`;
   }
 }
 
@@ -429,6 +467,7 @@ function populateDistributionTable(tableData) {
 
 async function refreshDistributionData() {
   const fitData = await apiFetch('/api/data/fit-distributions');
+  State.fitData = fitData;
   populateDistributionTable(fitData.comparison_table);
   AppCharts.renderDistributionFit(fitData.curve_data);
 }
@@ -439,8 +478,10 @@ async function regenerateSyntheticWorkload() {
 
   State.currentWorkload = await apiFetch('/api/data/generate-workload', 'POST', { scenario, duration });
   AppCharts.renderSyntheticWorkload(State.currentWorkload);
+  updateM1Telemetry();
 
   const decompData = await apiFetch('/api/data/decomposition');
+  State.decompData = decompData;
   AppCharts.renderDecomposition(decompData.decomposition);
 
   State.currentForecast = await apiFetch('/api/forecast/predict');
